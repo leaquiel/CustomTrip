@@ -7,7 +7,7 @@
       <ul class="footer-nav">
         <li><a href="#">Preguntas frecuentes</a></li>
         <li><a href="#">Mapa del sitio</a></li>
-        <li><a href="register.html">Unitenos</a></li>
+        <li><a href="register.php">Unitenos</a></li>
         <li><a href="#">Terminos y condiciones</a></li>
         <li><a href="#">Informacion legal</a></li>
       </ul>

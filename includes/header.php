@@ -1,6 +1,6 @@
  <header>
-   <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: rgba(30, 37, 59, 0.40);">
-     <a class="navbar-brand logo_CT" href="#">CostumTrip</a>
+   <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: rgba(30, 37, 59, 0.60);">
+     <a class="navbar-brand logo_CT" href="index.php">CostumTrip</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
@@ -19,10 +19,10 @@
 
        <ul class="navbar-nav">
          <li class="nav-item">
-           <a class="nav-link" data-toggle="dropdown" href="#">LogIn</a>
+           <a class="nav-link"  href="login.php">LogIn</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="#">Registrate</a>
+           <a class="nav-link" href="register.php">Registrate</a>
          </li>
        </ul>
      </div>
