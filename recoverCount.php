@@ -4,10 +4,10 @@
   $pageTitle = 'RecoverCount';
   require_once 'includes/head.php';
 
-  // if ( isLogged() ) {
-  //     header('location: index.php');
-  //     exit;
-  // }
+  if ( isLogged() ) {
+      header('location: profile.php');
+      exit;
+  }
 
 ?>
 <body>

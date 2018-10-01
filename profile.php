@@ -1,5 +1,5 @@
 <?php
-  $title = "Profile";
+  $pageTitle = "Profile";
   require_once 'includes/head.php';
 ?>
 <style media="screen">

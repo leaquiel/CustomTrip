@@ -173,14 +173,14 @@
 	function userCreator($post){
 		$user = [
 			'id' => setId(),
-			'name' => $post['name'],
-			'user' => $post['user'],
-			'email' => $post['email'],
+			'name' => trim($post['name']),
+			'user' => trim($post['user']),
+			'email' => trim($post['email']),
 			'password' => password_hash($post['password'], PASSWORD_DEFAULT),
-			'country' => $post['country'],
-			'avatar' => $post['avatar'],
-			'target' => $post['target'],
-			'question' => $post['securityQuestion'],
+			'country' => trim($post['country']),
+			'avatar' => trim($post['avatar']),
+			'target' => trim($post['target']),
+			'question' => trim($post['securityQuestion']),
 			'answer' => trim($post['securityAnswer']),
 		];
 
@@ -189,7 +189,6 @@
 
 	// function logear al usuario
 	function logIn($user) {
-		unset($user['id']);
 		unset($user['password']);
 		$_SESSION['user'] = $user;
 		header('location: index.php');
@@ -210,7 +209,7 @@
 	$password = trim($formData['userPassword']);
 
 	if ( empty($userOrEmail) ) {
-		$errors['userOrEmail'] = 'Ingresá un correo electrónico o tu usuario';
+		$errors['userOrEmail'] = 'Ingresá tu correo electrónico o tu usuario';
 	}
 	// 	elseif( !filter_var($userOrEmail, FILTER_VALIDATE_EMAIL) ) {
 	// 	$errors['userOrEmail'] = 'Ingresá un formato de correo electrónico válido';
@@ -220,12 +219,12 @@
 	} else {
 		$user = getUserByEmailOrUserName($userOrEmail);
 		if ( !password_verify($password, $user['password']) ) {
-			$errors['password'] = 'Contraseña incorrecta';
+			$errors['userPassword'] = 'Contraseña incorrecta';
 		}
 	}
 
 	if ( empty($password) ) {
-		$errors['password'] = 'Ingresá una contraseña';
+		$errors['userPassword'] = 'Ingresá una contraseña';
 	}
 
 	return $errors;

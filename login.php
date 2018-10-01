@@ -5,10 +5,10 @@
   $pageTitle = 'LogIn';
   require_once 'includes/head.php';
 
-  // if ( isLogged() ) {
-  //     header('location: index.php');
-  //     exit;
-  // }
+  if ( isLogged() ) {
+      header('location: profile.php');
+      exit;
+  }
 
   // Persistencia de datos
 	$userOrEmail = isset($_POST['userOrEmail']) ? trim($_POST['userOrEmail']) : '';
@@ -45,14 +45,30 @@
     <form  method="post">
       <div class="form-group">
         <label class="col-lg-8">Email o usuario
-        <input type="email text" class="form-control" name="userOrEmail" placeholder="Ingresa email o nombre de usuario">
-      </label>
+          <input type="email text" name="userOrEmail" value="<?= $userOrEmail; ?>"
+          class="form-control <?= isset($errors['userOrEmail']) ? 'is-invalid' : ''; ?>"
+          placeholder="Ingresa email o nombre de usuario">
+
+          <?php if (isset($errors['userOrEmail'])): ?>
+            <div class="invalid-feedback">
+              <?= $errors['userOrEmail'] ?>
+            </div>
+          <?php endif; ?>
+
+        </label>
       </div>
 
       <div class="form-group">
         <label class="col-lg-8">Contraseña
-        <input type="password" class="form-control" name="userPassword" placeholder="Password">
-      </label>
+          <input type="password" class="form-control <?= isset($errors['userPassword']) ? 'is-invalid' : ''; ?>" name="userPassword" placeholder="Password">
+
+          <?php if (isset($errors['userPassword'])): ?>
+            <div class="invalid-feedback">
+              <?= $errors['userPassword'] ?>
+            </div>
+          <?php endif; ?>
+
+        </label>
       </div>
 
       <div class="form-check">

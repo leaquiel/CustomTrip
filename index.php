@@ -1,4 +1,5 @@
 <?php
+  $pageTitle = 'Home';
   require_once 'includes/head.php';
 ?>
 <body>

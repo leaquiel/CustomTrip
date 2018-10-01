@@ -1,3 +1,10 @@
+<?php
+require_once 'functions.php';
+if ( isLogged() ) {
+$theUser = $_SESSION['user'];
+}
+?>
+
  <header>
    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: rgba(30, 37, 59, 0.60);">
      <a class="navbar-brand logo_CT" href="index.php">CostumTrip</a>
@@ -7,23 +14,36 @@
      <div class="collapse navbar-collapse flex-justify-between" id="navbarNav">
      <!-- <div class="collapse navbar-collapse" id="navbarNav" style="display: flex; justify-content: space-between;"> -->
        <ul class="navbar-nav">
-         <li class="nav-item active">
-           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+         <li class="nav-item <?= ($pageTitle === 'Home') ? 'active' : ''; ?>">
+           <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
          </li>
-         <li class="nav-item">
+         <li class="nav-item <?= ($pageTitle === 'Nosotros') ? 'active' : ''; ?>">
            <a class="nav-link" href="#">¿Quienes somos?</a>
          </li>
        </ul>
 
        <div class="dropdown-divider"></div>
 
-       <ul class="navbar-nav">
-         <li class="nav-item">
-           <a class="nav-link"  href="login.php">LogIn</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="register.php">Registrate</a>
-         </li>
+       <ul class="navbar-nav align-items-center">
+          <?php if ( isLogged() ) : ?>
+            <!--  NO ME DA PELOTA AL ACTIVE EN PROFILE-->
+          <li class="nav-item">
+   					<a class="nav-link" href="profile.php">
+              <img src="data/avatars/<?= $theUser['avatar'] ?>" height="40" style="border-radius: 50%; ">
+   					</a>
+   			  </li>
+          <li class="nav-item <?= ($pageTitle === 'Profile') ? 'active' : ''; ?>">
+   					<a class="nav-link" href="profile.php">
+              <?= $theUser['user'] ?>
+   					</a>
+   			  </li>
+   				<li class="nav-item"><a class="nav-link" href="logout.php" style=" position: relative; top: 0px;">Cerrar sesion</a></li>
+
+
+         <?php else : ?>
+         <li class="nav-item <?= ($pageTitle === 'LogIn') ? 'active' : ''; ?>"><a class="nav-link"  href="login.php">LogIn</a></li>
+         <li class="nav-item <?= ($pageTitle === 'Register') ? 'active' : ''; ?>"><a class="nav-link" href="register_con_bootstrap.php">Registrate</a></li>
+         <?php endif; ?>
        </ul>
      </div>
    </nav>
