@@ -2,6 +2,18 @@
 <?php
 		require_once 'constant.php';
 
+		session_start();
+
+		// pregunto si esta setiada la cookie para loggear directamente al usuario
+		if ( isset($_COOKIE['userLogged'] ) ) {
+		$user = getUserByEmailOrUserName($_COOKIE['userLogged']);
+		unset($user['id']);
+		unset($user['password']);
+		$_SESSION['user'] = $user;
+		}
+
+
+		// funcion Validar Register
 		function registerValidate($formData, $files) {
 		$errors = [];
 
@@ -24,13 +36,15 @@
 		if ( empty($user) ) {
 			$errors['user'] = 'Escribí tu nombre de usuario';
 		}
+		// else if (userExist($user)){
+		// 	$errors['user'] = 'El nombre de usuario ya esta en uso';
+		// } CUANDO SE PUEDA VALIDAR EN TIEMPO REAL, PARA QUE HAYA SOLO UN USUARIO CON DICHO NOMBRE
 
 		if ( empty($email) ) {
 			$errors['email'] = 'Escribí tu correo electrónico';
 		} else if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 			$errors['email'] = 'Escribí un correo válido';
-		}
-		else if ( emailExist($email) ) {
+		}	else if ( emailExist($email) ) {
 			$errors['email'] = 'Ese email ya fue registrado';
 		}
 
@@ -141,7 +155,21 @@
 		return false;
 	}
 
+	// Función si existe el usuario
+	// function userExist($user){
+	// 	$allUsers = getAllUsers();
+	//
+	// 	foreach ($allUsers as $oneUser) {
+	// 		if ($user == $oneUser['user']) {
+	// 			return true;
+	// 		}
+	// 	}
+	//
+	// 	return false;
+	// }
+
 	// Función Crear Usuarios
+	// ¿¿¿¿¿¿¿¿¿¿¿¿ DEBERIA TRIMMEAR TODOS LOS ITEMS ??????????
 	function userCreator($post){
 		$user = [
 			'id' => setId(),
@@ -153,7 +181,7 @@
 			'avatar' => $post['avatar'],
 			'target' => $post['target'],
 			'question' => $post['securityQuestion'],
-			'answer' => $post['securityAnswer'],
+			'answer' => trim($post['securityAnswer']),
 		];
 
 		return $user;
@@ -173,6 +201,52 @@
 	function isLogged() {
 		return isset($_SESSION['user']);
 	}
+
+	// funcion Validar Login
+	function loginValidate($formData) {
+	$errors = [];
+
+	$userOrEmail = trim($formData['userOrEmail']);
+	$password = trim($formData['userPassword']);
+
+	if ( empty($userOrEmail) ) {
+		$errors['userOrEmail'] = 'Ingresá un correo electrónico o tu usuario';
+	}
+	// 	elseif( !filter_var($userOrEmail, FILTER_VALIDATE_EMAIL) ) {
+	// 	$errors['userOrEmail'] = 'Ingresá un formato de correo electrónico válido';
+	// }
+		elseif( !getUserByEmailOrUserName($userOrEmail)) {
+		$errors['userOrEmail'] = 'Ingrese un correo electrónico o usuario valido';
+	} else {
+		$user = getUserByEmailOrUserName($userOrEmail);
+		if ( !password_verify($password, $user['password']) ) {
+			$errors['password'] = 'Contraseña incorrecta';
+		}
+	}
+
+	if ( empty($password) ) {
+		$errors['password'] = 'Ingresá una contraseña';
+	}
+
+	return $errors;
+}
+
+// función traer al usuario por email o por user name
+function getUserByEmailOrUserName($userOrEmail) {
+	$allUsers = getAllUsers();
+
+	foreach ($allUsers as $oneUser) {
+		if ($oneUser['email'] === $userOrEmail) {
+			return $oneUser;
+		}
+		else if ($oneUser['user'] === $userOrEmail) {
+			return $oneUser;
+		}
+	}
+	return false;
+}
+
+
 
 
 

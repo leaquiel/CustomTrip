@@ -9,7 +9,7 @@
   <!-- ABRE EL CONTENEDOR PRINCIPAL -->
   <div class="container posicionamiento">
 
-
+<!-- ACA VA A IR LA BUSQUEDA AUTOMATICA CUANDO SE PUEDA MANDAR JAVA SCRIPT -->
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
   <!-- CIERRE DE CONTENEDOR PRINCIPAL -->

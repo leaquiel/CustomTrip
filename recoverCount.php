@@ -1,7 +1,7 @@
 <?php
   require_once 'functions.php';
 
-  $pageTitle = 'Dame nombre padre';
+  $pageTitle = 'RecoverCount';
   require_once 'includes/head.php';
 
   // if ( isLogged() ) {

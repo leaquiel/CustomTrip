@@ -1,6 +1,12 @@
 <?php
 require_once 'functions.php';
 
+$pageTitle = 'Register';
+
+if ( isLogged() ) {
+		header('location: profile.php');
+		exit;
+}
 
 $countries = [
   'ar' => 'Argentina',
@@ -49,13 +55,6 @@ if ($_POST) {
 }
 
 ?>
-
-
-
-
-
-
-
 <?php
   require_once 'includes/head.php';
 ?>
@@ -100,7 +99,7 @@ if ($_POST) {
               </label>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="col-md-4">
               <label>Nacionalidad
                 <select name="country"
                 class="form-control <?= isset($errors['country']) ? 'is-invalid' : ''; ?>">
@@ -134,7 +133,7 @@ if ($_POST) {
 
             <div class="col-md-4 mb-3">
               <label>Contraseña
-                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="password">
+                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="password" placeholder="Password">
                 <?php if (isset($errors['password'])): ?>
   									<div class="invalid-feedback">
   										<?= $errors['password'] ?>
@@ -145,7 +144,7 @@ if ($_POST) {
 
             <div class="col-md-4 mb-3">
               <label>Repetir Contraseña
-                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="confirmPassword">
+                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="confirmPassword" placeholder="Confirm Password">
                 <?php if (isset($errors['password'])): ?>
                     <div class="invalid-feedback">
                       <?= $errors['password'] ?>
@@ -193,7 +192,7 @@ if ($_POST) {
 
           <div class="col-md-4 mb-3">
             <label>Ingrese respuesta
-              <input type="text" class="form-control <?= isset($errors['securityAnswer']) ? 'is-invalid' : ''; ?>" name="securityAnswer">
+              <input type="text" class="form-control <?= isset($errors['securityAnswer']) ? 'is-invalid' : ''; ?>" name="securityAnswer" placeholder="Ej. 1234">
               <?php if (isset($errors['securityAnswer'])): ?>
 									<div class="invalid-feedback">
 										<?= $errors['securityAnswer'] ?>

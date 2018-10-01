@@ -1,32 +1,72 @@
+
 <?php
+  require_once 'functions.php';
+
+  $pageTitle = 'LogIn';
   require_once 'includes/head.php';
-?>
+
+  // if ( isLogged() ) {
+  //     header('location: index.php');
+  //     exit;
+  // }
+
+  // Persistencia de datos
+	$userOrEmail = isset($_POST['userOrEmail']) ? trim($_POST['userOrEmail']) : '';
+
+	$errors = [];
+
+	if ($_POST) {
+		$errors = loginValidate($_POST);
+
+		if ( count($errors) == 0) {
+			$user = getUserByEmailOrUserName($_POST['userOrEmail']);
+
+			if( isset($_POST['rememberUser']) ) {
+      setcookie('userLogged', $_POST['userOrEmail']/*, time() + 3600*/);
+			}
+
+			logIn($user);
+		}
+	}
+
+
+ ?>
+
+
+
 <body>
   <!-- Header -->
    <?php require_once "includes/header.php"; ?>
   <!-- //Header -->
   <br><br><br>
   <!-- ABRE EL CONTENEDOR PRINCIPAL -->
-  <div class="container posicionamiento">
+  <div class="container">
 
-    <form>
-      <div class="form-group" method="post">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
+    <form  method="post">
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label class="col-lg-8">Email o usuario
+        <input type="email text" class="form-control" name="userOrEmail" placeholder="Ingresa email o nombre de usuario">
+      </label>
       </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+      <div class="form-group">
+        <label class="col-lg-8">Contraseña
+        <input type="password" class="form-control" name="userPassword" placeholder="Password">
+      </label>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+
+      <div class="form-check">
+        <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="rememberUser">
+          No cerrar sesion.</label>
+      </div>
+
+      <p><a href="recoverCount.php">¿Olvidó su nombre de usuario o contraseña?</a></p>
+
+      <button type="submit" class="btn btn-primary">Mandale wey!</button>
     </form>
 
-  
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
