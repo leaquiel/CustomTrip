@@ -19,13 +19,14 @@
   <div class="container">
 
 
-<!-- FORMULARIO Q CONSULTE POR EL MAIL O POR LA PREGUNTA DE SEGURIDAD
-HACER UNA FUNCION A LA Q SE LE DELEGE TOD2
+<!-- AQUI VA EL CONTENIDO
  -->
 
 
 
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
   </div>
   <!-- CIERRE DE CONTENEDOR PRINCIPAL -->
 

@@ -24,7 +24,7 @@
 			if( isset($_POST['rememberUser']) ) {
       setcookie('userLogged', $_POST['userOrEmail']/*, time() + 3600*/);
 			}
-
+      
 			logIn($user);
 		}
 	}
@@ -45,7 +45,7 @@
     <form  method="post">
       <div class="form-group">
         <label class="col-lg-8">Email o usuario
-          <input type="email text" name="userOrEmail" value="<?= $userOrEmail; ?>"
+          <input type="text" name="userOrEmail" value="<?= $userOrEmail; ?>"
           class="form-control <?= isset($errors['userOrEmail']) ? 'is-invalid' : ''; ?>"
           placeholder="Ingresa email o nombre de usuario">
 

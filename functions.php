@@ -7,7 +7,6 @@
 		// pregunto si esta setiada la cookie para loggear directamente al usuario
 		if ( isset($_COOKIE['userLogged'] ) ) {
 		$user = getUserByEmailOrUserName($_COOKIE['userLogged']);
-		unset($user['id']);
 		unset($user['password']);
 		$_SESSION['user'] = $user;
 		}
@@ -36,9 +35,10 @@
 		if ( empty($user) ) {
 			$errors['user'] = 'Escribí tu nombre de usuario';
 		}
-		// else if (userExist($user)){
-		// 	$errors['user'] = 'El nombre de usuario ya esta en uso';
-		// } CUANDO SE PUEDA VALIDAR EN TIEMPO REAL, PARA QUE HAYA SOLO UN USUARIO CON DICHO NOMBRE
+		else if (userExist($user)){
+			$errors['user'] = 'El nombre de usuario ya esta en uso';
+		}
+		// CUANDO SE PUEDA VALIDAR EN TIEMPO REAL, PARA QUE HAYA SOLO UN USUARIO CON DICHO NOMBRE
 
 		if ( empty($email) ) {
 			$errors['email'] = 'Escribí tu correo electrónico';
@@ -156,20 +156,19 @@
 	}
 
 	// Función si existe el usuario
-	// function userExist($user){
-	// 	$allUsers = getAllUsers();
-	//
-	// 	foreach ($allUsers as $oneUser) {
-	// 		if ($user == $oneUser['user']) {
-	// 			return true;
-	// 		}
-	// 	}
-	//
-	// 	return false;
-	// }
+	function userExist($user){
+		$allUsers = getAllUsers();
+
+		foreach ($allUsers as $oneUser) {
+			if ($user == $oneUser['user']) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	// Función Crear Usuarios
-	// ¿¿¿¿¿¿¿¿¿¿¿¿ DEBERIA TRIMMEAR TODOS LOS ITEMS ??????????
 	function userCreator($post){
 		$user = [
 			'id' => setId(),
@@ -210,11 +209,7 @@
 
 	if ( empty($userOrEmail) ) {
 		$errors['userOrEmail'] = 'Ingresá tu correo electrónico o tu usuario';
-	}
-	// 	elseif( !filter_var($userOrEmail, FILTER_VALIDATE_EMAIL) ) {
-	// 	$errors['userOrEmail'] = 'Ingresá un formato de correo electrónico válido';
-	// }
-		elseif( !getUserByEmailOrUserName($userOrEmail)) {
+	}elseif( !getUserByEmailOrUserName($userOrEmail)) {
 		$errors['userOrEmail'] = 'Ingrese un correo electrónico o usuario valido';
 	} else {
 		$user = getUserByEmailOrUserName($userOrEmail);
@@ -245,16 +240,111 @@ function getUserByEmailOrUserName($userOrEmail) {
 	return false;
 }
 
+function searchAccountValidate($formData){
+	$errors = [];
+
+	$userOrEmail = trim($formData['userOrEmail']);
+	$pregunta = trim($formData['securityQuestion']);
+	$respuesta = trim($formData['securityAnswer']);
+
+	if (empty($userOrEmail) ) {
+		$errors['userOrEmail'] = 'Ingresá tu correo electrónico o tu usuario';
+	}	elseif( !getUserByEmailOrUserName($userOrEmail)) {
+		$errors['userOrEmail'] = 'Ingrese un correo electrónico o usuario valido';
+	}
+
+	if (empty($pregunta)){
+		$errors['securityQuestion'] = 'Elije una opcion';
 
 
+	}
+	if (empty($respuesta)){
+		$errors['securityAnswer'] = 'Ingresá tu respuesta';
+
+	}
+
+	return $errors;
+
+}
+
+function searchAccount($formData){
+	$allUsers = getAllUsers();
+
+	foreach ($allUsers as $oneUser) {
+		if ($oneUser['email'] === $formData) {
+			return $oneUser;
+		}
+		else if ($oneUser['user'] === $formData) {
+			return $oneUser;
+		}
+	}
+
+	return false;
+}
 
 
+function getUserById($theUserId){
+	$allUsers = getAllUsers();
+
+	foreach ($allUsers as $oneUser) {
+		if ($oneUser['id'] === $theUserId) {
+			return $oneUser;
+		}
+	}
+	return false;
+}
+//  NO ME ESTA CAMBIANDO LA CONTRASEÑAAAAA
+function changePassword($theUserId, $post){
+	$user=getUserById($theUserId);
+	foreach ($user as $oneItem => &$itemValue) {
+		if ($oneItem === 'password') {
+			unset($itemValue);
+			$user[$oneItem]= password_hash($post['newPassword'], PASSWORD_DEFAULT);
+			// $user['password']= $post['newPassword'];
+		}
+	}
+	return $user;
+}
 
 
+function newPasswordValidate($formData){
+	$errors = [];
 
+	$password = trim($formData['newPassword']);
+	$rePassword = trim($formData['confirmNewPassword']);
 
+	if (empty($password) || empty($rePassword)){
+		$errors['newPassword'] = 'La contraseña no puede quedar en blanco';
+	} else if ($password != $rePassword){
+		$errors['newPassword'] = 'Las contraseñas no coinciden';
+	} elseif ( strlen($password) < 4 || strlen($rePassword) < 4 ) {
+		$errors['newPassword'] = 'La contraseña debe tener más de 4 caracteres';
+	}
+	return $errors;
+	}
 
+	function saveNewPassword($userWithNewPassword){
+		$allUsers=getAllUsers();
+		$newUserId=$userWithNewPassword['id'];
+		// $user=getUserById($newUserId);
+		foreach ($allUsers as $llave => $oneUser) {
+			foreach ($oneUser as $key => $value) {
+			if ($value === $newUserId) {
+				unset($oneUser['password']);
+				$oneUser['password']=$userWithNewPassword['password'];
+				$allUsers[$llave] = $oneUser;
+			}
+		}
+	}
+		foreach ($allUsers as $oneUser) {
+			// code...
+		$userInJsonFormat = json_encode($oneUser);
 
+		file_put_contents('data/users.json', $userInJsonFormat . PHP_EOL);
+		}
 
+		return $allUsers;
 
-  ?>
+	}
+
+?>
