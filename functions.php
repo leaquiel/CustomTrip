@@ -244,43 +244,59 @@ function searchAccountValidate($formData){
 	$errors = [];
 
 	$userOrEmail = trim($formData['userOrEmail']);
+	$user= getUserByEmailOrUserName($userOrEmail);
 	$pregunta = trim($formData['securityQuestion']);
 	$respuesta = trim($formData['securityAnswer']);
 
 	if (empty($userOrEmail) ) {
 		$errors['userOrEmail'] = 'Ingresá tu correo electrónico o tu usuario';
-	}	elseif( !getUserByEmailOrUserName($userOrEmail)) {
+	}	elseif( !$user) {
 		$errors['userOrEmail'] = 'Ingrese un correo electrónico o usuario valido';
 	}
 
 	if (empty($pregunta)){
 		$errors['securityQuestion'] = 'Elije una opcion';
-
-
+	} else if ($user['question'] != $pregunta){
+		$errors['securityQuestion'] = 'Ingrese datos correctos';
 	}
 	if (empty($respuesta)){
 		$errors['securityAnswer'] = 'Ingresá tu respuesta';
-
+	} else if ($user['answer'] != $respuesta){
+		$errors['securityAnswer'] = 'Ingrese datos correctos';
 	}
 
 	return $errors;
 
 }
 
-function searchAccount($formData){
-	$allUsers = getAllUsers();
+// function searchAccount($formData){
+// 	$allUsers = getAllUsers();
+//
+// 	foreach ($allUsers as $oneUser) {
+// 		if ($oneUser['email'] === $formData) {
+// 			return $oneUser;
+// 		}
+// 		else if ($oneUser['user'] === $formData) {
+// 			return $oneUser;
+// 		}
+// 	}
+//
+// 	return false;
+// }
 
-	foreach ($allUsers as $oneUser) {
-		if ($oneUser['email'] === $formData) {
-			return $oneUser;
-		}
-		else if ($oneUser['user'] === $formData) {
-			return $oneUser;
-		}
-	}
-
-	return false;
-}
+// function getUserByEmailOrUserName($userOrEmail) {
+// 	$allUsers = getAllUsers();
+//
+// 	foreach ($allUsers as $oneUser) {
+// 		if ($oneUser['email'] === $userOrEmail) {
+// 			return $oneUser;
+// 		}
+// 		else if ($oneUser['user'] === $userOrEmail) {
+// 			return $oneUser;
+// 		}
+// 	}
+// 	return false;
+// }
 
 
 function getUserById($theUserId){
@@ -293,25 +309,28 @@ function getUserById($theUserId){
 	}
 	return false;
 }
-//  NO ME ESTA CAMBIANDO LA CONTRASEÑAAAAA
-function changePassword($theUserId, $post){
-	$user=getUserById($theUserId);
-	foreach ($user as $oneItem => &$itemValue) {
-		if ($oneItem === 'password') {
-			unset($itemValue);
-			$user[$oneItem]= password_hash($post['newPassword'], PASSWORD_DEFAULT);
-			// $user['password']= $post['newPassword'];
-		}
-	}
-	return $user;
-}
 
-
-function newPasswordValidate($formData){
+function newPasswordValidate($formData, $user){
 	$errors = [];
 
-	$password = trim($formData['newPassword']);
-	$rePassword = trim($formData['confirmNewPassword']);
+	if (isLogged()){
+		// $actualPassword = password_hash($formData['actualPassword'], PASSWORD_DEFAULT);
+		$actualPassword = $formData['actualPassword'];
+	}
+
+	$password = $formData['newPassword'];
+	$rePassword = $formData['confirmNewPassword'];
+
+
+	if (isLogged()){
+		if (empty($actualPassword)){
+			$errors['actualPassword'] = 'Debe ingresar su contraseña actual';
+		}
+		if (!password_verify($actualPassword, $user['password'])){
+			$errors['actualPassword'] = 'La contraseña ingresada no es correcta';
+		}
+
+	}
 
 	if (empty($password) || empty($rePassword)){
 		$errors['newPassword'] = 'La contraseña no puede quedar en blanco';
@@ -321,23 +340,37 @@ function newPasswordValidate($formData){
 		$errors['newPassword'] = 'La contraseña debe tener más de 4 caracteres';
 	}
 	return $errors;
-	}
+}
 
-	function saveNewPassword($userWithNewPassword){
+
+//  FUNCION REDUNDANTE NO IMPLEMENTADA
+
+// function changePassword($theUserId, $post){
+//
+// 	$user=getUserById($theUserId);
+// 	foreach ($user as $oneItem => &$itemValue) {
+// 		if ($oneItem === 'password') {
+// 			unset($itemValue);
+// 			$user[$oneItem]= password_hash($post['newPassword'], PASSWORD_DEFAULT);
+// 		}
+// 	}
+// 	return $user;
+// }
+
+	function changeAndSaveNewPassword($userWhoWantChangePassword, $post){
 		$allUsers=getAllUsers();
-		$newUserId=$userWithNewPassword['id'];
-		// $user=getUserById($newUserId);
+		$newUserId=$userWhoWantChangePassword['id'];
 		foreach ($allUsers as $llave => $oneUser) {
 			foreach ($oneUser as $key => $value) {
 			if ($value === $newUserId) {
 				unset($oneUser['password']);
-				$oneUser['password']=$userWithNewPassword['password'];
+				$oneUser['password']=password_hash($post['newPassword'], PASSWORD_DEFAULT);
 				$allUsers[$llave] = $oneUser;
 			}
 		}
 	}
 		foreach ($allUsers as $oneUser) {
-			// code...
+
 		$userInJsonFormat = json_encode($oneUser);
 
 		file_put_contents('data/users.json', $userInJsonFormat . PHP_EOL);

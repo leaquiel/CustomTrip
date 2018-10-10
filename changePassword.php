@@ -1,29 +1,34 @@
 <?php
   require_once 'functions.php';
 
-  $pageTitle = 'Dame nombre padre';
+  $pageTitle = 'Cambiar contraseña';
   require_once 'includes/head.php';
 
-  if ( isLogged() ) {
-      header('location: index.php');
-      exit;
+  // if ( isLogged() ) {
+  //     header('location: index.php');
+  //     exit;
+  // }
+// NO QUIERO Q PREGUNTE PORQUE SINO NO ME DEJA CAMBIAR LA CLAVE UNA VEZ LOGEADO EL USUARIO
+  $errors = [];
+  if (isLogged()){
+    $theUserOrEmail = $_SESSION['user']['user'];
+    //  $_SESSION['user'] es mi usuario logeado sin la contraseña, por eso tengo q buscarlo
   }
 
-  $errors = [];
-
-  if ($_GET['token']) {
-    $theUserOrEmail=base64_decode($_GET['token']);
-    $userWhoWantChangePassword=searchAccount($theUserOrEmail);
-    $theUserId=$userWhoWantChangePassword['id'];
-    // changePassword($theUserId, $_POST);
+  else {
+    if ($_GET['token']) {
+      $theUserOrEmail=base64_decode($_GET['token']);
+      // $userWhoWantChangePassword=searchAccount($theUserOrEmail);
+    }
+  }
 
     if ($_POST) {
-      $errors = newPasswordValidate($_POST);
+
+      $userWhoWantChangePassword=getUserByEmailOrUserName($theUserOrEmail);
+      $errors = newPasswordValidate($_POST, $userWhoWantChangePassword);
 
       if ( count($errors) == 0) {
-        // Funciona bien la funcion de abajo!!
-        $userWhichPasswordWasChanged=changePassword($theUserId, $_POST);
-        if(saveNewPassword($userWhichPasswordWasChanged)){
+        if(changeAndSaveNewPassword($userWhoWantChangePassword, $_POST)){
           header('location: index.php');
           exit;
         }
@@ -39,7 +44,8 @@
         // FUNCION DE GUARDAR NUEVAMENTE USUARIO Y LISTO
       }
   }
-}
+
+
 
 ?>
 <body>
@@ -51,8 +57,26 @@
   <div class="container">
 
 
-
     <form active="changePassword.php" method="post">
+
+      <?php if (isLogged()) :?>
+      <div class="form-group">
+
+        <label class="col-lg-8">Ingrese su contraseña actual
+          <input type="password" name="actualPassword"
+          class="form-control <?= isset($errors['actualPassword']) ? 'is-invalid' : ''; ?>"
+          placeholder="Su Password">
+
+          <?php if (isset($errors['actualPassword'])): ?>
+            <div class="invalid-feedback">
+              <?= $errors['actualPassword'] ?>
+            </div>
+          <?php endif; ?>
+
+        </label>
+
+      </div>
+      <?php endif; ?>
 
       <div class="form-group">
         <label class="col-lg-8">Ingrese su nueva contraseña

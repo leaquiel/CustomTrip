@@ -2,6 +2,9 @@
 require_once 'functions.php';
 if ( isLogged() ) {
 $theUser = $_SESSION['user'];
+// echo '<pre>';
+// var_dump($theUser);
+// exit;
 }
 ?>
 

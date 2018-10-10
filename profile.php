@@ -46,7 +46,7 @@
       // print_r($key . ' ' . $value);
       // echo "</pre>";}
     ?>
-    <a href="#">Cambiar contraseña</a>
+    <a href="changePassword.php">Cambiar contraseña</a>
 
 
   </div>
