@@ -1,0 +1,29 @@
+ul, ol {
+  list-style:none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.logo_CT {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+body {
+  background-image: url("../images/fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}

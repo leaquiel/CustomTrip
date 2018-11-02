@@ -1,14 +1,5 @@
 <?php
-  require_once 'functions.php';
-
-  $pageTitle = 'Dame nombre padre';
   require_once 'includes/head.php';
-
-  // if ( isLogged() ) {
-  //     header('location: index.php');
-  //     exit;
-  // }
-
 ?>
 <body>
   <!-- Header -->
@@ -16,17 +7,10 @@
   <!-- //Header -->
   <br><br><br>
   <!-- ABRE EL CONTENEDOR PRINCIPAL -->
-  <div class="container">
+  <div class="container posicionamiento">
 
-
-<!-- AQUI VA EL CONTENIDO
- -->
-
-
-
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
+<!-- ACA VA A IR LA BUSQUEDA AUTOMATICA CUANDO SE PUEDA MANDAR JAVA SCRIPT -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
   <!-- CIERRE DE CONTENEDOR PRINCIPAL -->
 

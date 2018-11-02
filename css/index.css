@@ -1,0 +1,24 @@
+/*      COMIENZO DE DISEÑO DEL INDEX                     */
+
+.index-tittle{
+  text-align: center;
+  margin: 0;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  text-align: center;
+  font-size: 3.3em;
+}
+.sub-tittle{
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: .9em;
+  margin-bottom: 0;
+}
+.posicionamiento{
+  /*  PODER PONER EL TITULO DEBAJO DEL Header*/
+}
+
+
+
+
+/*      FIN DE DISEÑO DEL INDEX                          */

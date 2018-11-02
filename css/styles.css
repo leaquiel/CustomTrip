@@ -1,157 +1,18 @@
 @import "normalize.css";
+
+@import "generalidades.css";
+
+/*   COMIENZO DE CONTENIDO DEL INDEX  */
+@import "index.css";
+/*   FIN DE CONTENIDO DEL INDEX  */
+
+/*   COMIENZO DE CONTENIDO DEL registro  */
+@import "register.css";
+/*   FIN DE CONTENIDO DEL registro  */
+
+/*   COMIENZO DE CONTENIDO DEL FOOTER  */
+@import "footer.css";
+/*   FIN DE CONTENIDO DEL FOOTER  */
+
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Dosis:300,400,500');
-
-ul, ol {
-  list-style:none;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  text-decoration: none;
-  color: black;
-}
-
-.logo_CT {
-  font-family: 'Dancing Script', cursive;
-  font-weight: 700;
-  font-size: 1.5em;
-}
-
-body {
-  background-image: url("../images/fondo.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-}
-
-/*COMIENZO DE FOOTER                          */
-
-.footer-enlances{
-  background-color: rgba(30, 37, 59, 0.6);
-  color: #d1ccc8;
-}
-
-
-.footer-nav{
-  padding-top: 7px;
-  display: flex;
-  flex-wrap: wrap;
-}
-.logos{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 8% 0;
-}
-
-.footer-nav li{
-  padding: 3px 3%;
-  font-size: .8em;
-  width:50%;
-  border-right: 2px solid rgba(174, 176, 199, .55);
-}
-
-.footer-nav li:last-child{
-  border-right: none;
-}
-
-/* .footer-nav li:hover{
-  background-color: rgba(82, 124, 142, 0.8);
-
-} */
-
-.footer-nav li a{
-  color: black;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #d1ccc8;
-}
-.footer-nav li a:hover {
-color: black;
-}
-
-.pie{
-  /* background-color: rgba(30, 37, 59, 0.40); */
-  padding-top: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #d1ccc8;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.main-footer-tittle{
-  margin: 0;
-  font-family: 'Dancing Script', cursive;
-  font-weight: 700;
-  text-align: center;
-  font-size: 1.3em;
-}
-
-.copyright{
-  text-align: center;
-  font-size: .7em;
-  padding-bottom: 10px;
-}
-
-/*FIN DE FOOTER                          */
-
-/* md breakpoint */
-@media (min-width: 768px) {}
-
-/* lg breakpoint */
-@media screen and (min-width:992px)
-{
-.flex-justify-between{
-  display: flex; justify-content: space-between;
-}
-.footer-nav{
-  padding: 0;
-  margin: 0;
-  width: 50%;
-}
-
-.footer-nav li {
-  padding: 3px 2%;
-  font-size: 1em;
-  width: 20%;
-}
-
-.main-footer-tittle{
-  font-size: 1.7em;
-}
-.copyright{
-  font-size: 1em;
-}
-
-.logos li{
-  margin: 0 20px;
-}
-.logos{
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-}
-.icon{
-  font-size: 25px;
-}
-
-.footer-enlances{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 20px;
-}
-
-}
+/* @import "index.css"; */
