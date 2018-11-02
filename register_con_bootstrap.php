@@ -121,18 +121,32 @@ if ($_POST) {
             <div class="col-md-4">
               <label>Nacionalidad
                 <select name="country"
+<<<<<<< HEAD
                 class="form-control <?= $FormData->fieldHasError('country') ? 'is-invalid' : ''; ?>">
                   <option value="">Elige un país</option>
                   <?php foreach ($countries as $code => $country): ?>
                     <option
                     <?= $code == $FormData->getCountry() ? 'selected' : '' ?>
+=======
+                class="form-control <?= isset($errors['country']) ? 'is-invalid' : ''; ?>">
+                  <option value="">Elige un país</option>
+                  <?php foreach ($countries as $code => $country): ?>
+                    <option
+                    <?= $code == $userCountry ? 'selected' : '' ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
                     value="<?= $code ?>"><?= $country ?>
                     </option>
                   <?php endforeach; ?>
                 </select>
+<<<<<<< HEAD
               <?php if ( $FormData->fieldHasError('country') ): ?>
                 <div class="invalid-feedback">
                   <?= $FormData->getFieldError('country') ?>
+=======
+              <?php if (isset($errors['country'])): ?>
+                <div class="invalid-feedback">
+                  <?= $errors['country'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
                 </div>
               <?php endif; ?>
             </label>
@@ -140,11 +154,19 @@ if ($_POST) {
 
             <div class="col-md-4 mb-3">
               <label>Email
+<<<<<<< HEAD
                 <input type="email" class="form-control <?= $FormData->fieldHasError('email') ? 'is-invalid' : ''; ?>"
                  name="email" value="<?= $FormData->getEmail() ;  ?>" placeholder="Carlitox@yahoo.com.ar">
                 <?php if ( $FormData->fieldHasError('email') ): ?>
 									<div class="invalid-feedback">
 										<?=  $FormData->getFieldError('email') ?>
+=======
+                <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : ''; ?>"
+                 name="email" value="<?= $userEmail; ?>" placeholder="Carlitox@yahoo.com.ar">
+                <?php if (isset($errors['email'])): ?>
+									<div class="invalid-feedback">
+										<?= $errors['email'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
 									</div>
 								<?php endif; ?>
               </label>
@@ -152,10 +174,17 @@ if ($_POST) {
 
             <div class="col-md-4 mb-3">
               <label>Contraseña
+<<<<<<< HEAD
                 <input type="password" class="form-control <?= $FormData->fieldHasError('password') ? 'is-invalid' : ''; ?>" name="password" placeholder="Password">
                 <?php if ( $FormData->fieldHasError('password') ): ?>
   									<div class="invalid-feedback">
   										<?= $FormData->getFieldError('password')  ?>
+=======
+                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="password" placeholder="Password">
+                <?php if (isset($errors['password'])): ?>
+  									<div class="invalid-feedback">
+  										<?= $errors['password'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
   									</div>
   								<?php endif; ?>
               </label>
@@ -163,29 +192,52 @@ if ($_POST) {
 
             <div class="col-md-4 mb-3">
               <label>Repetir Contraseña
+<<<<<<< HEAD
                 <input type="password" class="form-control <?= $FormData->fieldHasError('password') ? 'is-invalid' : ''; ?>" name="confirmPassword" placeholder="Confirm Password">
                 <?php if ( $FormData->fieldHasError('password') ): ?>
   									<div class="invalid-feedback">
   										<?= $FormData->getFieldError('password')  ?>
   									</div>
   								<?php endif; ?>
+=======
+                <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : ''; ?>" name="confirmPassword" placeholder="Confirm Password">
+                <?php if (isset($errors['password'])): ?>
+                    <div class="invalid-feedback">
+                      <?= $errors['password'] ?>
+                    </div>
+                  <?php endif; ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
               </label>
             </div>
 
             <div class="form-group col-md-4">
               <label>Target
+<<<<<<< HEAD
                 <select name="target" class="form-control <?= $FormData->fieldHasError('target') ? 'is-invalid' : ''; ?>">
                     <option value="">Elije un target</option>
                     <?php foreach ($targets as $code => $target): ?>
       							<option
       								<?= $code == $FormData->getTarget() ? 'selected' : '' ?>
+=======
+                <select name="target" class="form-control <?= isset($errors['target']) ? 'is-invalid' : ''; ?>">
+                    <option value="">Elije un target</option>
+                    <?php foreach ($targets as $code => $target): ?>
+      							<option
+      								<?= $code == $userTarget ? 'selected' : '' ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
       								value="<?= $code ?>"><?= $target ?>
                     </option>
           					<?php endforeach; ?>
                 </select>
+<<<<<<< HEAD
               <?php if ( $FormData->fieldHasError('target') ): ?>
                 <div class="invalid-feedback">
                   <?= $FormData->getFieldError('target') ?>
+=======
+              <?php if (isset($errors['target'])): ?>
+                <div class="invalid-feedback">
+                  <?= $errors['target'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
                 </div>
               <?php endif; ?>
               </label>
@@ -195,15 +247,25 @@ if ($_POST) {
             <!-- PREG Y RESP DE SEGURIDAD DEBERIA ESTAR EN UN MISMO DIV -->
             <div class="form-group col-md-4">
               <label>Pregunta de seguridad
+<<<<<<< HEAD
                 <select name="securityQuestion" class="form-control <?= $FormData->fieldHasError('securityQuestion') ? 'is-invalid' : ''; ?>">
+=======
+                <select name="securityQuestion" class="form-control <?= isset($errors['securityQuestion']) ? 'is-invalid' : ''; ?>">
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
                     <option value="">Elije pregunta de seguridad </option>
                     <option value="mb">Lugar de nacimiento de tu madre</option>
                     <option value="pn">Nombre de tu primer mascota</option>
                     <option value="fs">Cancion favorita</option>
                 </select>
+<<<<<<< HEAD
               <?php if ($FormData->fieldHasError('securityQuestion')): ?>
 									<div class="invalid-feedback">
 										<?= $FormData->getFieldError('securityQuestion') ?>
+=======
+              <?php if (isset($errors['securityQuestion'])): ?>
+									<div class="invalid-feedback">
+										<?= $errors['securityQuestion'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
 									</div>
 								<?php endif; ?>
               </label>
@@ -211,10 +273,17 @@ if ($_POST) {
 
           <div class="col-md-4 mb-3">
             <label>Ingrese respuesta
+<<<<<<< HEAD
               <input type="text" class="form-control <?= $FormData->fieldHasError('securityAnswer') ? 'is-invalid' : ''; ?>" name="securityAnswer" placeholder="Ej. 1234">
               <?php if ($FormData->fieldHasError('securityAnswer')): ?>
 									<div class="invalid-feedback">
 										<?= $FormData->getFieldError('securityAnswer') ?>
+=======
+              <input type="text" class="form-control <?= isset($errors['securityAnswer']) ? 'is-invalid' : ''; ?>" name="securityAnswer" placeholder="Ej. 1234">
+              <?php if (isset($errors['securityAnswer'])): ?>
+									<div class="invalid-feedback">
+										<?= $errors['securityAnswer'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
 									</div>
 								<?php endif; ?>
             </label>
@@ -226,6 +295,7 @@ if ($_POST) {
 								<div class="custom-file">
 									<input
 										type="file"
+<<<<<<< HEAD
 										class="custom-file-input <?= $FormData->fieldHasError('avatar') ? 'is-invalid' : ''; ?>"
 									 	name="avatar"
 									>
@@ -233,6 +303,15 @@ if ($_POST) {
 									<?php if ($FormData->fieldHasError('avatar')): ?>
 										<div class="invalid-feedback">
 											<?= $FormData->getFieldError('avatar') ?>
+=======
+										class="custom-file-input <?= isset($errors['image']) ? 'is-invalid' : ''; ?>"
+									 	name="avatar"
+									>
+									<label class="custom-file-label">Elige un archivo...</label>
+									<?php if (isset($errors['image'])): ?>
+										<div class="invalid-feedback">
+											<?= $errors['image'] ?>
+>>>>>>> 3c72c5294a9424b72c2911af30233eeff46a3a66
 										</div>
 									<?php endif; ?>
 								</div>
