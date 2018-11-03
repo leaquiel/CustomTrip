@@ -173,7 +173,7 @@
 
 			$result = $stmt->fetch(PDO::FETCH_OBJ);
 
-			if ($result) {
+			if (!$result) {
         $this->migrateFromJson($db);
       }
 			return false;
